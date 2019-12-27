@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary header-container">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col size="1"><img src="src/assets/img/logo/ge-logo-white.png" class="header-logo"/></ion-col>
+        <ion-col size="10">
+          <ion-title>{{ regionService.language['appTitle'] }}</ion-title>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-toolbar class="breadcrumb-bar" *ngIf="!hideBreadcrumb">
+    <breadcrumb [pageType]="pageType" (showWarningsOnBreadcrumbNavigation)="showWarningsOnBreadcrumbNavigation.emit($event)"></breadcrumb>
+  </ion-toolbar>
+</ion-header>

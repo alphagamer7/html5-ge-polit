@@ -1,0 +1,85 @@
+
+.summary-page {
+    // variable declarations
+    --ion-grid-column-padding: 50px;
+    --padding-start: 0px;
+    --padding-end: 0px;    
+
+    hr {
+        border-bottom: 1px solid var(--ion-color-light);
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    ion-grid {
+    --ion-grid-padding: 0px;
+    }
+
+    ion-row {
+        &.no-padding {
+            ion-col {
+            padding-left: 10px;
+            padding-right: 10px;
+
+                &:first-child {
+                padding-left: 0px;
+                }
+
+                &:last-child {
+                padding-right: 0px;
+                }
+            }
+        }
+
+        &.inner-row {
+        width: 100%;
+        }
+    }
+
+    ion-col {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: var(--ion-grid-column-padding);
+        padding-right: var(--ion-grid-column-padding);
+
+        > ion-item {
+            margin-bottom: 20px;
+        }
+    }
+
+    p {
+        &.title-description {
+            font-style: italic;
+            color: var(--ion-color-text-disabled);
+            font-size: var(--font-size-md);
+            margin: 0 50px 0;
+            text-align: center;
+            
+        }
+    }
+
+    ion-list {
+        > div {
+            border: 1px dashed var(--ion-color-primary);
+            border-left: 4px solid var(--ion-color-primary);
+
+            margin-bottom: 20px;
+
+            &.summary-error {
+                border: 1px dashed var(--ion-alert-color-danger);
+                border-left: 4px solid var(--ion-alert-color-danger);
+            }
+        }
+    }
+
+    ion-item {
+        // variable declarations
+        --padding-start: 0px;
+        --inner-padding-end: 0px;
+        --inner-border-width: 0;
+        --min-height: 20px;
+        --border-width: 0;
+        --highlight-background: none;
+    }
+
+}

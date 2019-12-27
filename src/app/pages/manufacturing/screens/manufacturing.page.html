@@ -1,0 +1,120 @@
+<header-section
+  [pageType]="pageType"
+  (showWarningsOnBreadcrumbNavigation)="handleShowWarningsOnBreadcrumbNavigation($event)"
+></header-section>
+<ion-content padding class="form-container">
+  <form [formGroup]="manufacturingnForm" *ngIf="formIsReady">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked" [class.label-error]="!manufacturingnForm.controls.manufacturingType.valid && showWarnings">
+              {{ regionService.language[fields[fieldKeys.manufacturingType].label] }}
+              *</ion-label
+            >
+            <ion-select
+              [interfaceOptions]="customPopoverOptions"
+              mode="ios"
+              [interface]="fields[fieldKeys.manufacturingType].interface"
+              [placeholder]="regionService.language[fields[fieldKeys.manufacturingType].placeholder]"
+              [formControlName]="fields[fieldKeys.manufacturingType].name"
+              [class.error]="!manufacturingnForm.controls.manufacturingType.valid && showWarnings"
+            >
+              <ion-select-option *ngFor="let option of fields[fieldKeys.manufacturingType].options" [value]="option">
+                {{ option.value }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"> {{ regionService.language[fields[fieldKeys.sampleRequirements].label] }}</ion-label>
+            <ion-input
+              [type]="fields[fieldKeys.sampleRequirements].type"
+              [placeholder]="regionService.language[fields[fieldKeys.sampleRequirements].placeholder]"
+              [formControlName]="fields[fieldKeys.sampleRequirements].name"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-row class="no-padding inner-row">
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked" [class.label-error]="!manufacturingnForm.controls.poreSize.valid && showWarnings">
+                    {{ regionService.language[fields[fieldKeys.poreSize].label] }}*</ion-label
+                  >
+                  <ion-select
+                    [interfaceOptions]="customPopoverOptions25"
+                    mode="ios"
+                    [interface]="fields[fieldKeys.poreSize].interface"
+                    [placeholder]="regionService.language[fields[fieldKeys.poreSize].placeholder]"
+                    [formControlName]="fields[fieldKeys.poreSize].name"
+                    [class.error]="!manufacturingnForm.controls.poreSize.valid && showWarnings"
+                  >
+                    <ion-select-option *ngFor="let option of fields[fieldKeys.poreSize].options" [value]="option">
+                      {{ option.label }}</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked" [class.label-error]="!manufacturingnForm.controls.storageTemperature.valid && showWarnings">
+                    {{ regionService.language[fields[fieldKeys.storageTemperature].label] }}*</ion-label
+                  >
+                  <ion-select
+                    [interfaceOptions]="customPopoverOptions35"
+                    mode="ios"
+                    [interface]="fields[fieldKeys.storageTemperature].interface"
+                    [placeholder]="regionService.language[fields[fieldKeys.storageTemperature].placeholder]"
+                    [formControlName]="fields[fieldKeys.storageTemperature].name"
+                    [class.error]="!manufacturingnForm.controls.storageTemperature.valid && showWarnings"
+                  >
+                    <ion-select-option *ngFor="let option of fields[fieldKeys.storageTemperature].options" [value]="option">
+                      {{ option.value }}</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" [class.label-error]="!manufacturingnForm.controls.shippingConditions.valid && showWarnings">
+              {{ regionService.language[fields[fieldKeys.shippingConditions].label] }}
+              *</ion-label
+            >
+            <ion-select
+              [interfaceOptions]="customPopoverOptions"
+              mode="ios"
+              [interface]="fields[fieldKeys.shippingConditions].interface"
+              [placeholder]="regionService.language[fields[fieldKeys.shippingConditions].placeholder]"
+              [formControlName]="fields[fieldKeys.shippingConditions].name"
+              [class.error]="!manufacturingnForm.controls.shippingConditions.valid && showWarnings"
+            >
+              <ion-select-option *ngFor="let option of fields[fieldKeys.shippingConditions].options" [value]="option">
+                {{ option.value }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-radio-group [formControlName]="fields[fieldKeys.isTemperatureMonitoringRequired].name">
+              <ion-list-header>
+                {{ regionService.language[fields[fieldKeys.isTemperatureMonitoringRequired].label] }}
+              </ion-list-header>
+
+              <ion-item *ngFor="let confirmation of objectKeys(confirmations)">
+                <ion-radio [value]="confirmation" mode="md"></ion-radio>
+                <ion-label>{{ confirmations[confirmation] }} </ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <manufacturing-info [guideInfo]="manufacturingManger.guideInfo" *ngIf="manufacturingManger.guideInfo"> </manufacturing-info>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <page-footer [pageType]="pageType" [showWarning]="!isFormValid" (buttonClicked)="handleButtonClicked($event)"> </page-footer>
+</ion-footer>

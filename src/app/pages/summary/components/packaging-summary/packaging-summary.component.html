@@ -1,0 +1,13 @@
+<ion-item class="summary-component">
+  <ion-grid>
+    <ion-label class="title" [class.label-error]="hasError"
+      >{{ regionService.language[title] }} <ion-icon (click)="handleNavigate(path)" name="md-create"></ion-icon
+    ></ion-label>
+
+    <ion-col>
+      <li *ngFor="let packagingItem of packagingInfo">
+        <common-summary [genericSummary]="packagingItem" [fieldKeys]="fieldKeys" [showHeader]="false"></common-summary>
+      </li>
+    </ion-col>
+  </ion-grid>
+</ion-item>

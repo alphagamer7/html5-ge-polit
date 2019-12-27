@@ -1,0 +1,32 @@
+<div class="breadcrumb-container">
+  <div
+    *ngFor="let position of breadcrumbService.pages; let i = index"
+    class="breadcrumb"
+    [ngClass]="
+      i + 1 === breadcrumbService.index
+        ? 'active'
+        : breadcrumbService.index > i &&
+          breadcrumbService.visitStatus[i + 1] &&
+          breadcrumbService.visitStatus[i + 1].pageType === position.path
+        ? 'complete'
+        : 'inactive'
+    "
+  >
+    <div class="breadcrumb-number-container" *ngIf="position.isVisible" (click)="goToPosition(position)">
+      <div class="breadcrumb-number" [class.invalid-form]="showErrorStatus(position.path)">
+        <ion-icon name="checkmark" *ngIf="getPageStatus(position.path, i + 1)"> </ion-icon>
+        <p *ngIf="!getPageStatus(position.path, i + 1)">
+          {{ i + 1 }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="breadcrumb-title"
+      (click)="goToPosition(position)"
+      *ngIf="position.isVisible"
+      [class.invalid-form]="showErrorStatus(position.path)"
+    >
+      {{ regionService.language[position.title] }}
+    </div>
+  </div>
+</div>

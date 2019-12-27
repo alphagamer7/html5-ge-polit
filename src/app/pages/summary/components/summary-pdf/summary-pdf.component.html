@@ -1,0 +1,242 @@
+<table class="col-12">
+  <tr class="blue-header">
+    <td class="col-1"><img src="src/assets/img/logo/ge-logo-white.png" class="header-logo" alt="ge-logo" height="30px" width="30px" /></td>
+
+    <td class="col-10 main-title">
+      <h1>{{ regionService.language['appTitle'] }}</h1>
+    </td>
+    <td class="col-1"></td>
+  </tr>
+
+  <tr>
+    <table class="summary-component">
+      <thead>
+        <tr>
+          <th class="title">
+            {{ regionService.language[generalPageTitle] }}
+          </th>
+        </tr>
+      </thead>
+      <tr>
+        <td class="col-8">
+          <div *ngFor="let summaryDetails of objectKeys(generalPageFieldKeys); let i = index" class="row">
+            <div class="col-5 desc-title">{{ regionService.language[summaryDetails] }}:</div>
+            <div class="col-7 desc">
+              {{
+                generalPageSummary[summaryDetails]
+                  ? regionService.language[generalPageSummary[summaryDetails]]
+                    ? regionService.language[generalPageSummary[summaryDetails]]
+                    : generalPageSummary[summaryDetails]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="map col-4" [hidden]="!showMap">
+          <img id="googleMap" />
+        </td>
+      </tr>
+    </table>
+  </tr>
+
+  <tr>
+    <!-- formulation table -->
+    <table class="summary-component">
+      <thead>
+        <tr>
+          <th class="title">
+            {{ regionService.language[formulationPageTitle] }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <h5>
+              {{ regionService.language['productName'] }} :
+              {{ formulationPageSummary.productName ? formulationPageSummary.productName : '-' }}
+            </h5>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h6 class="sub-title">
+              {{ regionService.language['chemicals'] + ' (' + formulationPageSummary.selectedFormulations.length + ')' }}
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="sub-table chemical-table" cellspacing="0" cellpadding="5px">
+              <tbody>
+                <tr class="table-header-row">
+                  <th *ngFor="let column of formulationTableHeaders">{{ column.title }}</th>
+                </tr>
+
+                <tr
+                  class="table-body-row"
+                  cellpadding="5px"
+                  *ngFor="let item of formulationPageSummary.selectedFormulations; let i = index"
+                >
+                  <td *ngFor="let column of formulationTableHeaders">
+                    <div *ngIf="column.key !== 'concentration' && column.key !== ''">
+                      {{ item[column.key] ? item[column.key] : '-' }}
+                    </div>
+                    <div *ngIf="column.key === 'concentration'">
+                      <div>{{ item.concentration }} {{ item.concentrationUnit }}</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h6 class="sub-title">
+              {{ regionService.language['requiredTests'] + ' ' + '(' + formulationPageSummary.selectedQualityTests.length + ')' }}
+            </h6>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <table class="sub-table" cellspacing="0" cellpadding="5px">
+              <tbody>
+                <tr class="table-header-row">
+                  <th *ngFor="let column of qualityControlTestHeaders">{{ column.title }}</th>
+                </tr>
+                <tr *ngFor="let item of formulationPageSummary.selectedQualityTests; let i = index" class="table-body-row">
+                  <td *ngFor="let column of qualityControlTestHeaders">
+                    <div>
+                      <div *ngIf="column.key !== 'typeOfData'">{{ item[column.key] ? item[column.key] : '-' }}</div>
+                      <div *ngIf="column.key === 'typeOfData'" class="select-container">
+                        {{ item[column.key] ? item[column.key] : '-' }}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </tr>
+  <!-- packaging table -->
+
+  <tr>
+    <table class="summary-component">
+      <thead>
+        <tr>
+          <th class="title">
+            {{ regionService.language[packagingPageTitle] }}
+          </th>
+        </tr>
+      </thead>
+
+      <tr *ngFor="let packagingItem of packagingPageSummary">
+        <td class="col-6">
+          <div *ngFor="let item of objectKeys(leftPackagingColumnKeys); let i = index" class="row desc-container">
+            <div class="col-6 desc-title ">{{ regionService.language[item] }}:</div>
+            <div class="col-6 desc">
+              {{
+                packagingItem[item]
+                  ? regionService.language[packagingItem[item]]
+                    ? regionService.language[packagingItem[item]]
+                    : packagingItem[item]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="col-6">
+          <div *ngFor="let item of objectKeys(rightPackagingColumnKeys); let i = index" class="row desc-container">
+            <div class="col-6 desc-title">{{ regionService.language[item] }}:</div>
+            <div class="col-6 desc">
+              {{
+                packagingItem[item]
+                  ? regionService.language[packagingItem[item]]
+                    ? regionService.language[packagingItem[item]]
+                    : packagingItem[item]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </tr>
+
+  <!-- manufacturing table -->
+  <tr>
+    <table class="summary-component">
+      <thead>
+        <tr>
+          <th class="title">
+            {{ regionService.language[manufacturingPageTitle] }}
+          </th>
+        </tr>
+      </thead>
+
+      <tr>
+        <td class="col-6">
+          <div *ngFor="let item of objectKeys(leftManufacturingColumnKeys); let i = index" class="row desc-container">
+            <div class="col-6 desc-title">{{ regionService.language[item] }}:</div>
+            <div class="col-6 desc">
+              {{
+                manufacturingPageSummary[item]
+                  ? regionService.language[manufacturingPageSummary[item]]
+                    ? regionService.language[manufacturingPageSummary[item]]
+                    : manufacturingPageSummary[item]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="col-6">
+          <div *ngFor="let item of objectKeys(rightManufacturingColumnKeys); let i = index" class="row desc-container">
+            <div class="col-6 desc-title">{{ regionService.language[item] }}:</div>
+            <div class="col-6 desc">
+              {{
+                manufacturingPageSummary[item]
+                  ? regionService.language[manufacturingPageSummary[item]]
+                    ? regionService.language[manufacturingPageSummary[item]]
+                    : manufacturingPageSummary[item]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </tr>
+  <!-- documentation table -->
+  <tr>
+    <table class="summary-component">
+      <thead>
+        <tr>
+          <th class="title">
+            {{ regionService.language[documentationPageTitle] }}
+          </th>
+        </tr>
+      </thead>
+      <tr>
+        <td class="col-12">
+          <div *ngFor="let summaryDetails of objectKeys(documentationPageFieldKeys); let i = index" class="row desc-container">
+            <div class="col-7 desc-title">{{ regionService.language[summaryDetails] }}:</div>
+            <div class="col-5 desc">
+              {{
+                documentationPageSummary[summaryDetails]
+                  ? regionService.language[documentationPageSummary[summaryDetails]]
+                    ? regionService.language[documentationPageSummary[summaryDetails]]
+                    : documentationPageSummary[summaryDetails]
+                  : '-'
+              }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </tr>
+</table>

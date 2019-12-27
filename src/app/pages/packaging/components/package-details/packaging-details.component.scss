@@ -1,0 +1,19 @@
+.package-preview-title {
+    p {
+        display: block;
+        text-align: center;
+        color: var(--ion-color-tertiary);
+        font-style: italic;
+        margin: 0 auto;
+    }
+}
+
+.package-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    package-content {
+        width: 100%;
+    }
+}

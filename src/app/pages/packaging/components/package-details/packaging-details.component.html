@@ -1,0 +1,139 @@
+<form [formGroup]="packagingForm" *ngIf="formIsReady">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked" [class.label-error]="!packagingForm.controls.packagingType.valid && showWarnings">
+            {{ regionService.language[fields[fieldKeys.packagingType].label] }}
+            *</ion-label
+          >
+          <ion-select
+            [interfaceOptions]="customPopoverOptions"
+            mode="ios"
+            [interface]="fields[fieldKeys.packagingType].interface"
+            [placeholder]="regionService.language[fields[fieldKeys.packagingType].placeholder]"
+            [formControlName]="fields[fieldKeys.packagingType].name"
+            [class.error]="!packagingForm.controls.packagingType.valid && showWarnings"
+          >
+            <ion-select-option *ngFor="let option of packagingTypes" [value]="option">{{ option.value }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" [class.label-error]="!packagingForm.controls.packagingOption.valid && showWarnings">
+            {{ regionService.language[fields[fieldKeys.packagingOption].label] }}
+            *</ion-label
+          >
+          <ion-select
+            [interfaceOptions]="customPopoverOptions"
+            mode="ios"
+            [interface]="fields[fieldKeys.packagingOption].interface"
+            [placeholder]="regionService.language[fields[fieldKeys.packagingOption].placeholder]"
+            [formControlName]="fields[fieldKeys.packagingOption].name"
+            [class.error]="!packagingForm.controls.packagingOption.valid && showWarnings"
+          >
+            <ion-select-option *ngFor="let option of packagingOptions" [value]="option">{{ option.value }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" [class.label-error]="!packagingForm.controls.outerPackaging.valid && showWarnings">
+            {{ regionService.language[fields[fieldKeys.outerPackaging].label] }}
+            *</ion-label
+          >
+          <ion-select
+            [interfaceOptions]="customPopoverOptions"
+            mode="ios"
+            [interface]="fields[fieldKeys.outerPackaging].interface"
+            [placeholder]="regionService.language[fields[fieldKeys.outerPackaging].placeholder]"
+            [formControlName]="fields[fieldKeys.outerPackaging].name"
+            [class.error]="!packagingForm.controls.outerPackaging.valid && showWarnings"
+          >
+            <ion-select-option *ngFor="let option of outerPackagings" [value]="option">{{ option.value }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-row class="no-padding inner-row">
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked" [class.label-error]="!packagingForm.controls.fillVolume.valid && showWarnings">
+                  {{ regionService.language[fields[fieldKeys.fillVolume].label] }}
+                  *</ion-label
+                >
+
+                <ion-input
+                  [type]="fields[fieldKeys.fillVolume].type"
+                  [placeholder]="regionService.language[fields[fieldKeys.fillVolume].placeholder]"
+                  [formControlName]="fields[fieldKeys.fillVolume].name"
+                  onkeypress="return (event.charCode >= 46 && event.charCode <= 57)"
+                  [class.error]="!packagingForm.controls.fillVolume.valid && showWarnings"
+                ></ion-input>
+                <p class="error-message" *ngIf="packagingForm.get(fields[fieldKeys.fillVolume].name).errors?.numberWithDecimalFields">
+                  {{ regionService.language[fields[fieldKeys.fillVolume].name] }}
+                  {{ regionService.language['requiredInteger'] }}
+                </p>
+
+                <p class="error-message" *ngIf="showFillVolumeError">
+                  {{ regionService.language['fillVolumeError'] }}
+                  {{ fillvolumeErrorRange }}
+                </p>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked" [class.label-error]="!packagingForm.controls.batchSize.valid && showWarnings">
+                  {{ regionService.language[fields[fieldKeys.batchSize].label] }}
+                  *</ion-label
+                >
+                <ion-input
+                  [type]="fields[fieldKeys.batchSize].type"
+                  [placeholder]="regionService.language[fields[fieldKeys.batchSize].placeholder]"
+                  [formControlName]="fields[fieldKeys.batchSize].name"
+                  onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                  [class.error]="!packagingForm.controls.batchSize.valid && showWarnings"
+                ></ion-input>
+                <p class="error-message" *ngIf="packagingForm.get(fields[fieldKeys.batchSize].name).errors?.numberOnlyFields">
+                  {{ regionService.language[fields[fieldKeys.batchSize].name] }}
+                  {{ regionService.language['requiredInteger'] }}
+                </p>
+                <p class="error-message" *ngIf="showBatchSizeError">
+                  {{ regionService.language['batchSizeError'] }}
+                </p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item>
+          <ion-radio-group [formControlName]="fields[fieldKeys.showManufacturingDate].name">
+            <ion-list-header>
+              {{ regionService.language[fields[fieldKeys.showManufacturingDate].label] }}
+              *
+            </ion-list-header>
+
+            <ion-item *ngFor="let confirmationType of objectKeys(confirmations)">
+              <ion-radio [value]="confirmationType" mode="md"></ion-radio>
+              <ion-label>{{ confirmations[confirmationType] }} </ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item class="package-preview-title">
+          <p>{{ regionService.language['previewPackaging'] }}</p>
+        </ion-item>
+        <ion-item class="package-preview-container">
+          <package-content
+            *ngIf="packageContent"
+            class="ge-package-type"
+            [ngClass]="packageTypeStyle(packageType)"
+            [packageContent]="packageContent"
+            [showManufacturingDate]="showManufacturingDate"
+            [packageFeildKeys]="packageFeildKeys"
+            [packageTypeClass]="packageTypeStyle(packageType)"
+            [showAppendix]="showAppendix"
+          ></package-content>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+<!-- {{ packagingForm.get('fillVolume').errors | json }}
+  {{ packagingForm.get('batchSize').errors | json }} -->

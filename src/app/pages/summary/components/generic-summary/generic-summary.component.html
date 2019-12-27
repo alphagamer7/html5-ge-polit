@@ -1,0 +1,26 @@
+<ion-item class="summary-component">
+  <ion-grid>
+    <ion-label class="title" [class.label-error]="hasError"
+      >{{ regionService.language[title] }}<ion-icon (click)="handleNavigate(path)" name="md-create"></ion-icon
+    ></ion-label>
+    <ion-row>
+      <ion-col *ngIf="fieldKeys" size="7">
+        <div *ngFor="let item of objectKeys(fieldKeys); let i = index" class="desc-container">
+          <div class="desc-title">{{ regionService.language[item] }}:</div>
+          <div class="desc">
+            {{
+              genericSummary[item]
+                ? regionService.language[genericSummary[item]]
+                  ? regionService.language[genericSummary[item]]
+                  : genericSummary[item]
+                : '-'
+            }}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="5">
+        <location *ngIf="path === pageDetails.general.path" [locationId]="genericSummary.manufacturingLocation"></location>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>

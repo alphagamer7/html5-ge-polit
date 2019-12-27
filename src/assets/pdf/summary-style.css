@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #575757;
+  margin: 0px 50px;
+}
+
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+h5 {
+  margin-bottom: 10px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.col-12 {
+  width: 100%;
+}
+
+.col-11 {
+  width: 91.3%;
+}
+
+.col-10 {
+  width: 83.3%;
+}
+
+.col-9 {
+  width: 66.7%;
+}
+
+.col-8 {
+  width: 75%;
+}
+
+.col-7 {
+  width: 70%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-5 {
+  width: 30%;
+}
+
+.col-4 {
+  width: 25%;
+}
+
+.col-3 {
+  width: 33.3%;
+}
+
+.col-2 {
+  width: 16.67%;
+}
+
+.col-1 {
+  width: 8.33%;
+}
+
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.summary-component {
+  border: 1px dashed #1a6ebf;
+  border-left: 4px solid #1a6ebf;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 20px;
+  font-size: 16px;
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+.summary-component tbody tr td {
+  vertical-align: top;
+}
+
+.blue-header {
+  background-color: #1a6ebf;
+  color: white;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: table;
+  margin-bottom: 16px;
+}
+
+.blue-header img {
+  padding: 5px;
+}
+
+.blue-header h1 {
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  display: block;
+}
+
+.desc-container {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.desc-title {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.desc {
+  display: inline;
+  font-size: 14px;
+  font-weight: 700;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+
+  word-break: break-all;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.sub-title {
+  color: #575757;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.main-title {
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  color: #1a6ebf;
+  font-size: 14px;
+  font-weight: 700;
+  display: block;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.title-description {
+  font-style: italic;
+  color: #7d8083;
+  font-size: 14px;
+  margin: 0 50px 20px;
+  text-align: center;
+}
+
+.map img {
+  height: 200px;
+  width: 200px;
+}
+
+/* Sub Table */
+.sub-table {
+  width: 100%;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.sub-table .table-header-row {
+  background-color: #b2b5b4;
+  color: #ffffff;
+
+  font-size: 12px;
+  align-items: center;
+  letter-spacing: 1px;
+  text-align: left;
+
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sub-table .table-header-row td {
+  padding: 5px;
+}
+
+.sub-table.chemical-table tr td:first-child {
+  font-weight: 700;
+}

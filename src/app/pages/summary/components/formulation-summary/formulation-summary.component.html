@@ -1,0 +1,18 @@
+<ion-item class="summary-component">
+  <ion-grid>
+    <ion-label class="title" [class.label-error]="hasError"
+      >{{ regionService.language[title] }}<ion-icon (click)="handleNavigate(path)" name="md-create"></ion-icon
+    ></ion-label>
+    <ion-label class="product-name">{{ regionService.language['productName'] + ':' + '    ' + formulationSummary.productName }}</ion-label>
+    <ion-label class="sub-title">{{ regionService.language['chemicals'] + ' (' + formulationSummary.selectedFormulations.length + ')' }}</ion-label>
+
+    <data-table [headers]="formulationTableHeaders" [items]="formulationSummary.selectedFormulations" [viewOnly]="true" [isSummary]="true"></data-table>
+
+    <ion-label class="sub-title">{{ regionService.language['requiredTests'] + ' ' + '(' + formulationSummary.selectedQualityTests.length + ')' }}</ion-label>
+    <quality-control
+      [headers]="qualityControlTestHeaders"
+      [selectedQualityControl]="formulationSummary.selectedQualityTests"
+      [viewOnly]="true"
+    ></quality-control>
+  </ion-grid>
+</ion-item>

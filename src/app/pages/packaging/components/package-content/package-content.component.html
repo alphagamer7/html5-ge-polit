@@ -1,0 +1,29 @@
+<div class="package-preview" [ngClass]="packageTypeClass">
+  <div class="package-preview-text">
+    <div *ngFor="let item of objectKeys(packageFeildKeys)">
+      <div *ngIf="item === 'formulation' || item === 'productName'; else templateName">
+        <div *ngIf="item === 'productName'" class="title">
+          {{ packageContent[item] }}
+        </div>
+        <div *ngIf="item === 'formulation'">
+          <div class="title">Formulations</div>
+          <div *ngFor="let items of (packageContent[item] | keyvalue)" class="description borderLine">
+            <div *ngFor="let element of objectKeys(formualtionFieldKeys)">
+              {{ items.value[element] }}
+            </div>
+            {{ this.regionService.language['concentration'] }} : {{ items.value['concentrationlabel'] }}
+          </div>
+        </div>
+      </div>
+      <ng-template #templateName>
+        <ion-item *ngIf="!(item === 'mfgDate' && !showManufacturingDate)" class="description">
+          <b>{{ regionService.language[item] }}:</b> &nbsp;{{ packageContent[item] ? packageContent[item] : '-' }}
+        </ion-item>
+      </ng-template>
+    </div>
+    <div *ngIf="showAppendix" class="description">
+      {{ this.regionService.language['packageContentAppendix1'] }}<br />
+      {{ this.regionService.language['packageContentAppendix2'] }}
+    </div>
+  </div>
+</div>

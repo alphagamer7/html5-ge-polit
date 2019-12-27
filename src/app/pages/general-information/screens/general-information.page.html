@@ -1,0 +1,91 @@
+<header-section
+  [pageType]="pageType"
+  (showWarningsOnBreadcrumbNavigation)="handleShowWarningsOnBreadcrumbNavigation($event)"
+></header-section>
+<ion-content padding class="form-container">
+  <form [formGroup]="generalInformationForm" *ngIf="formIsReady">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked" [class.label-error]="!generalInformationForm.controls.companyName.valid && showWarnings">
+              {{ regionService.language[fields[fieldKeys.companyName].label] }}
+              *</ion-label
+            >
+            <ion-input
+              [type]="fields[fieldKeys.companyName].type"
+              [placeholder]="regionService.language[fields[fieldKeys.companyName].placeholder]"
+              [formControlName]="fields[fieldKeys.companyName].name"
+              [class.error]="!generalInformationForm.controls.companyName.valid && showWarnings"
+              [maxlength]="140"
+              onkeypress="return (event.charCode != 47 && event.charCode != 92)"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-radio-group [formControlName]="fields[fieldKeys.productType].name">
+              <ion-list-header>
+                {{ regionService.language[fields[fieldKeys.productType].label] }}
+                *
+              </ion-list-header>
+
+              <ion-item *ngFor="let productType of objectKeys(productTypes)">
+                <ion-radio [value]="productType" mode="md"></ion-radio>
+                <ion-label>{{ regionService.language[productType] }} </ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+          <ion-item>
+            <ion-radio-group [formControlName]="fields[fieldKeys.productionType].name">
+              <ion-list-header>
+                {{ regionService.language[fields[fieldKeys.productionType].label] }}
+                *
+              </ion-list-header>
+
+              <ion-item *ngFor="let productionType of objectKeys(productionTypes)">
+                <ion-radio [value]="productionType" mode="md"></ion-radio>
+                <ion-label>{{ regionService.language[productionType] }}</ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" [class.label-error]="!generalInformationForm.controls.productApplication.valid && showWarnings">
+              {{ regionService.language[fields[fieldKeys.productApplication].label] }}
+              *</ion-label
+            >
+            <ion-select
+              [interface]="fields[fieldKeys.productApplication].interface"
+              [interfaceOptions]="customPopoverOptions"
+              [placeholder]="regionService.language[fields[fieldKeys.productApplication].placeholder]"
+              [formControlName]="fields[fieldKeys.productApplication].name"
+              [class.error]="!generalInformationForm.controls.productApplication.valid && showWarnings"
+              mode="ios"
+            >
+              <ion-select-option *ngFor="let option of fields[fieldKeys.productApplication].options" [value]="option">
+                {{ option.value }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <location
+            [locationFiledDetails]="fields[fieldKeys.manufacturingLocation]"
+            [selectedLocation]="generalInformationForm.controls.manufacturingLocation.value"
+            (handleLocationSelect)="handleLocationSelect($event)"
+          >
+          </location>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <page-footer
+    [pageType]="pageType"
+    [showWarning]="!isFormValid"
+    [disableNextButton]="isPowderSelected"
+    (buttonClicked)="handleButtonClicked($event)"
+    [disableBackButton]="!formIsReady"
+  >
+  </page-footer>
+</ion-footer>

@@ -1,0 +1,99 @@
+.breadcrumb-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+  padding: 30px 0;
+
+  .breadcrumb-number-container {
+    .breadcrumb-number {
+      border-radius: 50%;
+      background-color: var(--ion-color-primary);
+      border: 2px solid var(--ion-color-text-light);
+      color: var(--ion-color-text-light);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      font-size: var(--font-size-lg);
+      justify-content: center;
+      align-items: center;
+      margin-left: 45px;
+      margin-right: 45px;
+      position: relative;
+
+      p {
+        font-size: 10px;
+      }
+
+      &:before {
+        display: inline-flex;
+        content: '';
+        border-top: 2px solid var(--ion-color-primary);
+        width: 90px;
+        margin: 0 1rem;
+        transform: translateY(-1rem);
+        position: absolute;
+        top: 28px;
+        right: 12px;
+        z-index: -1;
+      }
+      &.invalid-form {
+        background-color: var(--ion-color-danger-tint);
+      }
+    }
+  }
+
+  .breadcrumb-title {
+    margin-top: 4px;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    color: var(--ion-color-primary);
+    max-width: 110px;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    &.invalid-form {
+      color: var(--ion-color-danger-tint);
+    }
+  }
+
+  .breadcrumb {
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    &.inactive {
+      color: var(--ion-color-tertiary);
+
+      .breadcrumb-number {
+        background-color: var(--ion-color-tertiary);
+
+        &:before {
+          border-color: var(--ion-color-tertiary);
+        }
+      }
+
+      .breadcrumb-title {
+        color: var(--ion-color-tertiary);
+      }
+    }
+
+    &.active {
+      color: var(--ion-color-primary);
+    }
+
+    &.complete {
+      color: var(--ion-color-primary);
+    }
+
+    &:first-child {
+      .breadcrumb-number {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}

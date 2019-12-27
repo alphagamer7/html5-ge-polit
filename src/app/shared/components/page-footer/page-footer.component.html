@@ -1,0 +1,28 @@
+<div class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 justify-content-start>
+        <div *ngIf="!displaySubmit">
+          <cn-button (click)="prevPage()" class="btn-default">{{ regionService.language['back'] }}</cn-button>
+          <cn-button (click)="!disableResetButton && resetContent()" [disabled]="disableResetButton" *ngIf="reset" [outline]="true" class="btn-default"
+            >{{ regionService.language['reset'] }} Child Pages (only)</cn-button
+          >
+        </div>
+        <div *ngIf="displaySubmit">
+          <cn-button (click)="handleSaveLater()" class="btn-default">{{ regionService.language['saveForLater'] }}</cn-button>
+        </div>
+      </ion-col>
+
+      <ion-col col-6 justify-content-end>
+        <div *ngIf="!displaySubmit">
+          <cn-button (click)="!disableNextButton && nextPage()" [disabled]="disableNextButton" class="btn-primary">{{
+            regionService.language['next']
+          }}</cn-button>
+        </div>
+        <div *ngIf="displaySubmit">
+          <cn-button (click)="onSubmit()" class="btn-primary"> {{ regionService.language['submit'] }}</cn-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

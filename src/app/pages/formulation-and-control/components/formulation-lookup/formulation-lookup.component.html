@@ -1,0 +1,43 @@
+<ion-header>
+  <div *ngIf="searchType !== 'all'">
+    <h4>{{ regionService.language['resultsFor'] }} {{ searchText }}</h4>
+  </div>
+  <div *ngIf="searchType === 'all'">
+    <h4>{{ regionService.language['matchingResults'] }}</h4>
+  </div>
+</ion-header>
+
+<ion-content padding no-bounce has-bouncing="false" forceOverscroll="false">
+  <data-table
+    *ngIf="!loading"
+    [headers]="headers"
+    [items]="filteredFormulations"
+    [isSelectable]="true"
+    [hasMoreRecords]="hasMoreRecords"
+    [viewOnly]="false"
+    [displayModal]="true"
+    (paginateAction)="handlePagination($event)"
+    (itemSelection)="handleItemSelection($event)"
+    class="no-padding modal-table sticky-header"
+    [showRadio]="true"
+  >
+  </data-table>
+</ion-content>
+
+<div class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 justify-content-start>
+        <div>
+          <cn-button [outline]="true" (click)="cancel()" class="btn-default" tappable>{{ regionService.language['cancel'] }}</cn-button>
+        </div>
+      </ion-col>
+
+      <ion-col col-6 justify-content-end>
+        <cn-button (click)="selectedItems.length > 0 && save()" tappable [disabled]="selectedItems.length === 0" class="btn-primary">
+          {{ regionService.language['done'] }}
+        </cn-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,0 +1,32 @@
+ion-item {
+  .input-select-container {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    ion-input {
+      border-radius: 3px 0px 0px 3px;
+      position: relative;
+      z-index: 9;
+    }
+
+    ion-select {
+      width: 300px;
+      height: 44px;
+      border-radius: 0px 3px 3px 0px;
+    }
+  }
+}
+
+data-table,
+quality-control {
+  width: 100%;
+}
+
+.no-scroll .inner-scroll {
+  --overflow: hidden;
+}
+
+.no-scroll {
+  --overflow: hidden;
+}

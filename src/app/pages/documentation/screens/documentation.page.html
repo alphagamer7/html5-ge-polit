@@ -1,0 +1,88 @@
+<header-section [pageType]="pageType"></header-section>
+<ion-content padding class="form-container">
+  <form [formGroup]="documentationForm" *ngIf="formIsReady">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">
+              {{ regionService.language[fields[fieldKeys.labelCustomization].label] }}
+              <span class="word-count">
+                <p>
+                  {{ 140 - documentationForm.get(fields[fieldKeys.labelCustomization].label).value.length + ' '
+                  }}{{ regionService.language['maxCharacters'] }}
+                </p>
+              </span>
+            </ion-label>
+
+            <ion-textarea
+              [formControlName]="fields[fieldKeys.labelCustomization].name"
+              [placeholder]="regionService.language[fields[fieldKeys.labelCustomization].placeholder]"
+              [maxlength]="140"
+              [rows]="4"
+            ></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"> {{ regionService.language[fields[fieldKeys.daysUntilExpiration].label] }}</ion-label>
+            <ion-input
+              [type]="fields[fieldKeys.daysUntilExpiration].type"
+              [placeholder]="regionService.language[fields[fieldKeys.daysUntilExpiration].placeholder]"
+              onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+              [formControlName]="fields[fieldKeys.daysUntilExpiration].name"
+              [class.error]="documentationForm.get(fields[fieldKeys.daysUntilExpiration].name).errors?.max"
+            ></ion-input>
+            <p class="error-message" *ngIf="documentationForm.get(fields[fieldKeys.daysUntilExpiration].name).errors?.max">
+              {{ regionService.language[fields[fieldKeys.daysUntilExpiration].name] + ' should be between 0 to 9999' }}
+            </p>
+            <!-- <p class="error-message" *ngIf="documentationForm.get(fields[fieldKeys.daysUntilExpiration].name).errors?.numberOnlyFields">
+              {{ regionService.language[fields[fieldKeys.daysUntilExpiration].name] }}
+              {{ regionService.language['requiredInteger'] }}
+            </p> -->
+          </ion-item>
+          <ion-item>
+            <ion-radio-group [formControlName]="fields[fieldKeys.needQuoteForStabilityStudies].name">
+              <ion-list-header>
+                {{ regionService.language[fields[fieldKeys.needQuoteForStabilityStudies].label] }}
+              </ion-list-header>
+
+              <ion-item *ngFor="let confirmation of objectKeys(confirmations)">
+                <ion-radio [value]="confirmation" mode="md"></ion-radio>
+                <ion-label>{{ confirmations[confirmation] }} </ion-label>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6" class="pdf-container">
+          <ion-item>
+            <ion-label class="pdf-title">{{ regionService.language['previewInfo'] }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <div *ngIf="isPdfCreated">
+              <pdf-viewer (error)="onError($event)" [src]="srcPath" [zoom]="0.07" [external-link-target]="'blank'"> </pdf-viewer>
+            </div>
+          </ion-item>
+          <ion-item>
+            <cn-button (click)="handlePreview()" class="btn-primary">{{ regionService.language['preview'] }}</cn-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!-- <div> -->
+  <!-- Beta release use provided pdf-->
+
+  <!-- <certificate-pdf
+    #pdfBody
+    [hidden]="true"
+    [qualityTestResults]="documentationManager.qualityTestResults"
+    [headers]="certificateAnalysisHeaders"
+    [produtDetails]="documentationManager.produtDetails"
+    [title]="pdfAssetTitle"
+  ></certificate-pdf> -->
+  <!-- {{ documentationForm.get('labelCustomization').errors | json }}  -->
+  <!-- </div>-->
+</ion-content>
+<ion-footer>
+  <page-footer [showWarning]="!isFormValid" [pageType]="pageType" (buttonClicked)="handleButtonClicked($event)"> </page-footer>
+</ion-footer>

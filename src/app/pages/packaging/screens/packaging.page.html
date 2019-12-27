@@ -1,0 +1,30 @@
+<header-section [pageType]="pageType" (showWarningsOnBreadcrumbNavigation)="handleShowWarningsOnBreadcrumbNavigation($event)"></header-section>
+<ion-content padding #content scroll-y="true" class="form-container">
+  <div *ngIf="isPageInited">
+    <packaging-details
+      *ngFor="let packaging of (packagingManger.packagings$ | async)"
+      [packagingFormDetails]="packaging"
+      [fields]="packagingManger.fields"
+      [fieldKeys]="packagingManger.fieldKeys"
+      [hasRestrictions]="packagingManger.hasPackageRestrictions"
+      [hasAllowedConcentration]="packagingManger.hasAllowedConcentration"
+      [isNotNaoh]="packagingManger.isNotNaoh"
+      [showWarnings]="showWarnings"
+      [packagingManger]="packagingManger"
+      (formStatusEvent)="handleChildFormStatus($event)"
+      (updateStoreEvent)="handleUpdateStore($event)"
+      (getPackagingTypeDependentOptionsEvent)="handleGetPackagingTypeDependentOptionsEvent($event)"
+      (getPackagingOptioneDependentOptionsEvent)="handleGetPackagingOptioneDependentOptionsEvent($event)"
+      (getFillVolumeValidRangeEvent)="handleGetFillVolumeValidRangeEvent($event)"
+      [showAppendix]="showAppendix"
+    >
+    </packaging-details>
+  </div>
+
+  <!-- <div (click)="handleNewPackage()" *ngIf="isFormValid">
+    {{ regionService.language['addAnotherPackagingType'] }}
+  </div> -->
+</ion-content>
+<ion-footer>
+  <page-footer [pageType]="pageType" [showWarning]="!isFormValid" (buttonClicked)="handleButtonClicked($event)"> </page-footer>
+</ion-footer>

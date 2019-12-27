@@ -1,0 +1,4 @@
+<button [ngClass]="['button', outline ? 'outline' : 'fill']" [disabled]="disabled" ion-button>
+  <div class="buttonTitle"><ng-content></ng-content></div>
+  <div class="inactiveOverlay"></div>
+</button>

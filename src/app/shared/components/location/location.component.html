@@ -1,0 +1,55 @@
+<ion-item *ngIf="!locationId" [formGroup]="genFormGroup" class="location-search-container">
+  <ion-label position="stacked">
+    {{ regionService.language[locationFiledDetails.label] }}
+  </ion-label>
+
+  <ion-searchbar
+    (ionInput)="updateSearchResults($event)"
+    [placeholder]="regionService.language[locationFiledDetails.placeholder]"
+    formControlName="manufacturingLocation"
+    [class.disabled]="!onlineMap"
+    (ionClear)="clearSearch()"
+  >
+  </ion-searchbar>
+</ion-item>
+
+<ion-list *ngIf="autocompleteItems.length !== 0" class="searchbar-results">
+  <ion-item *ngFor="let item of autocompleteItems" (click)="selectSearchResult(item)" tappable>
+    {{ item.description }}
+  </ion-item>
+</ion-list>
+
+<ion-list *ngIf="autocompleteItems.length === 0 && showWarning && !isFetching" class="searchbar-results no-results">
+  <ion-item tappable>
+    {{ regionService.language['noSearch'] }}
+  </ion-item>
+</ion-list>
+
+<ion-item class="offImg">
+  <agm-map
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="zoom"
+    [disableDefaultUI]="true"
+    [streetViewControl]="false"
+    [scrollwheel]="false"
+    [zoomControl]="false"
+    [usePanning]="false"
+    gestureHandling="none"
+    [keyboardShortcuts]="false"
+  >
+    <agm-marker *ngIf="showMarker && !isDefaultLocation" [latitude]="lat" [longitude]="lng" #map [iconUrl]="geocodeService.makerSettings">
+    </agm-marker>
+  </agm-map>
+  <div class="content" *ngIf="!onlineMap" [class.map-overlay]="locationId">
+    <h1>{{ regionService.language['foundOffline'] }}</h1>
+    <p>{{ regionService.language['accessMap'] }}</p>
+  </div>
+  <!-- <div class="offImg" *ngIf="!onlineMap">
+    <img src="src/assets/img/offline-map.jpeg" alt="Offline Image" />
+    <div class="content">
+      <h1>{{ regionService.language['foundOffline'] }}</h1>
+      <p>{{ regionService.language['accessMap'] }}</p>
+    </div>
+  </div> -->
+</ion-item>

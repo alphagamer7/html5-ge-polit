@@ -1,0 +1,103 @@
+<header-section [pageType]="pageType"></header-section>
+<ion-content padding class="form-container summary-page">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item
+          ><p class="title-description">{{ regionService.language['summaryInfo'] }}</p></ion-item
+        >
+        <!-- <ion-item *ngIf="showWarning">
+          <p>{{ regionService.language['incompleteForms'] }}</p>
+        </ion-item> -->
+
+        <ion-list>
+          <div [class.summary-error]="summaryManager.errorPagesObj['general']">
+            <generic-summary
+              [genericSummary]="summaryManager?.generalInformation$ | async"
+              [fieldKeys]="pageDetails.general.fieldKeys"
+              [hasError]="summaryManager.errorPagesObj['general']"
+              title="general"
+              path="general"
+              (handleNavigation)="handleNavigation($event)"
+            ></generic-summary>
+          </div>
+          <div [class.summary-error]="summaryManager.errorPagesObj['formulation']">
+            <formulation-summary
+              [formulationSummary]="summaryManager?.formualtion$ | async"
+              [formulationTableHeaders]="formulationTableHeaders"
+              [qualityControlTestHeaders]="qualityControlTestHeaders"
+              [hasError]="summaryManager.errorPagesObj['formulation']"
+              title="formulation"
+              path="formulation"
+              (handleNavigation)="handleNavigation($event)"
+            ></formulation-summary>
+          </div>
+          <div [class.summary-error]="summaryManager.errorPagesObj['packaging']">
+            <packaging-summary
+              [packaging]="summaryManager?.packaging$ | async"
+              [fieldKeys]="pageDetails.packaging.fieldKeys"
+              [hasError]="summaryManager.errorPagesObj['packaging']"
+              title="packaging"
+              (handleNavigation)="handleNavigation($event)"
+              path="packaging"
+            ></packaging-summary>
+          </div>
+          <div [class.summary-error]="summaryManager.errorPagesObj['manufacturing']">
+            <common-summary
+              [showHeader]="true"
+              [genericSummary]="summaryManager?.manufacturing$ | async"
+              [fieldKeys]="pageDetails.manufacturing.fieldKeys"
+              [hasError]="summaryManager.errorPagesObj['manufacturing']"
+              title="manufacturing"
+              (handleNavigation)="handleNavigation($event)"
+              path="manufacturing"
+            ></common-summary>
+          </div>
+          <div [class.summary-error]="summaryManager.errorPagesObj['documentation']">
+            <generic-summary
+              [genericSummary]="summaryManager?.documentation$ | async"
+              [fieldKeys]="pageDetails.documentation.fieldKeys"
+              title="documentation"
+              (handleNavigation)="handleNavigation($event)"
+              [hasError]="summaryManager.errorPagesObj['documentation']"
+              path="documentation"
+            ></generic-summary>
+          </div>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <page-footer
+    [displaySubmit]="true"
+    [pageType]="pageType"
+    [disableNextButton]="showWarning"
+    (saveLater)="handleSaveLater()"
+    (sendMail)="handleMailPdf()"
+    (sendError)="handleValidation()"
+  >
+  </page-footer>
+</ion-footer>
+
+<summary-pdf
+  #pdfBody
+  [hidden]="true"
+  [generalPageSummary]="summaryManager?.generalInformation$ | async"
+  [formulationPageSummary]="summaryManager?.formualtion$ | async"
+  [packagingPageSummary]="summaryManager?.packaging$ | async"
+  [manufacturingPageSummary]="summaryManager?.manufacturing$ | async"
+  [documentationPageSummary]="summaryManager?.documentation$ | async"
+  [generalPageFieldKeys]="pageDetails.general.fieldKeys"
+  [packagingPageFieldKeys]="pageDetails.packaging.fieldKeys"
+  [manufacturingPageFieldKeys]="pageDetails.manufacturing.fieldKeys"
+  [documentationPageFieldKeys]="pageDetails.documentation.fieldKeys"
+  [generalPageTitle]="'generalInformationPageTitle'"
+  [formulationPageTitle]="'formulationInformationPageTitle'"
+  [packagingPageTitle]="'packagingPageTitle'"
+  [manufacturingPageTitle]="'manufacturingPageTitle'"
+  [documentationPageTitle]="'documentationPageTitle'"
+  [formulationTableHeaders]="formulationTableHeaders"
+  [qualityControlTestHeaders]="qualityControlTestHeaders"
+  [companyLocation]="companyLocation"
+></summary-pdf>

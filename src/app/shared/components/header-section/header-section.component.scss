@@ -1,0 +1,22 @@
+ion-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+
+    .header-container {
+        text-align: center;
+        position: relative;
+        max-height: 50px;
+        display: flex;
+        align-items: center;
+
+        --ion-grid-padding: 0px;
+
+        img {
+            max-height: 35px;
+            max-width: 35px;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<header-section [pageType]="pageType" [hideBreadcrumb]="true"></header-section>
+
+<ion-content padding no-bounce has-bouncing="false" forceOverscroll="false" class="confirmation-page-container">
+  <div class="confirmation-container">
+    <ion-icon name="checkmark"></ion-icon>
+    <h1>{{ regionService.language['requestSubmit'] }}</h1>
+
+    <p>
+      {{ regionService.language['subSuccessfully'] }} <br />
+      {{ regionService.language['conShortly'] }}
+    </p>
+
+    <cn-button class="btn-primary btn-block" (click)="navHome()">
+      {{ regionService.language['backToHome'] }}
+    </cn-button>
+  </div>
+</ion-content>

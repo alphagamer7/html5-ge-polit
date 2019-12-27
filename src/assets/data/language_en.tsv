@@ -1,0 +1,162 @@
+ LanguageId	LanguageValue
+companyName	 Company Name
+enterCompanyName	 Enter company name
+productType	 Product Type
+productionType	 Production Type
+productApplication	 Product Application
+selectProductApplication	 Select product application
+manufacturingType	 Manufacturing Type
+selectManufacturingType	 Select manufacturing type
+manufacturingLocation	 Ship to Location
+searchLocation	 Search ship to location
+generalInformationPageTitle	 GENERAL INFORMATION
+formulationAndControlPageTitle	 FORMULATION & QUALITY CONTROL
+packagingPageTitle	 PACKAGING
+manufacturingPageTitle	 MANUFACTURING & DISTRIBUTION
+documentationPageTitle	 DOCUMENTATION
+summaryPageTitle	 SUMMARY
+formulationInformationPageTitle	 FORMULATION & CONTROL
+packagingType	 Packaging Type
+selectPackagingType	 Select packaging type
+selectTypeOfData	 Select type of data
+packagingOption	 Packaging Option
+selectPackagingOption	 Select packaging option
+outerPackaging	 Outer Packaging
+selectOuterPackaging	 Select outer packaging
+fillVolume	 Fill Volume (L)
+batchSize	 Batch Size
+showManufacturingDate	 Show Manufacturing Date
+enterFillVolume	 Enter fill volume
+enterBatchSize	 Enter batch size
+addAnotherPackagingType	 Add Another Packaging Type
+sampleRequirements	 Sample Requirements
+enterSampleRequirements	 Enter sample requirements
+poreSize	 Pore Size
+selectPoreSize	 Select pore size
+storageTemperature	 Storage Temperature
+selectStorageTemperature	 Select storage temperature
+shippingConditions	 Shipping Conditions
+selectShippingConditions	 Select shipping conditions
+isTemperatureMonitoringRequired	 Is Temperature Monitoring Required?
+labelCustomization	 Label customization
+daysUntilExpiration	 Days until expiration (if applicable)
+needQuoteForStabilityStudies	 Would you like a quote for stability studies (if applicable)?
+labelCustomizationPlaceholder	 Type notes here. These will be added at the bottom of the package.
+maxCharacters	  characters
+previewInfo	 This is a preview of the Certificate of Analysis
+previewPackaging	 This is a preview of the packaging label
+preview	 Preview
+summaryInfo	 This is a summary of your selections. Please review and make any edits before submitting. You can tap on the sections below or use the tracker above to jump to that section as well.
+daysUntilExpirationlaceholder	 Enter days until expiration
+startRequest	 Start Request
+appTitle	 GE Cell Culture Tool
+saveLater	 Save For Later
+comingSoon	 Coming Soon
+ok	 OK
+manufacturingGuide	 Manufacturing info/guides
+confirmation	 OK, I understand
+incompleteForm	 Incomplete Form
+incompleteFormWarning	 Please fill out all the form fields with valid data in order to proceed.
+next	 Next
+submit	 Submit
+back	 Back
+reset	 Reset
+networkError	 Please connect to a network and try again.
+close	 Close
+closeConfirmation	 You are about to exit the App. Are you sure?
+yes	 Yes
+cancel	 Cancel
+required	 Required
+requiredInteger	 should be a number
+foundOffline	    We found you offline 
+accessMap	   You need to permit internet connection to access map 
+requestSubmit	   Request has been Submitted!
+subSuccessfully	 Your request has been submitted successfully.
+conShortly	 You will receive an email confirmation shortly.
+backToHome	 Back to Home
+saveForLater	 Save For Later
+chemicalFormulation	 Chemical Formulation
+qualityControlTest	 Quality Control Test
+allCategories	 All Categories
+chemicalName	 Chemical Name
+commonName	 Common Name
+cas	 CAS #
+part	 Part #
+lotNo	 Lot #
+catlogueNo	Catlog #
+search	 Search
+startTypying	 Start typing or select from the list
+rrp	 RRP
+gmp	 GMP
+no	No
+liquid	 Liquid
+powder	 Powder
+concentration	 Concentration
+done	Done
+productNameplaceholder	Enter product name
+warning	Warning
+packagingOptionsNotAvailable	'Packaging Options' are not available for selected 'Packaging Type'
+outerPackagingsNotAvailable	'Outer Packagings' are not available for selected 'Packaging Type'
+notAllowedHeader	Unfortunately, the chemical 
+notAllowedTail	is not allowed at this time. 
+chemicalFormulationNotAllowed	Chemical Formulation Not Allowed
+valueChange	 Change found
+valueChangeWarning	 We found you changing your mind! This would cause changes on all selections. Would you like to continue?
+specification	Specification
+typeOfData	Type of Data
+historical	Historical
+theoretical	Theoretical
+collapse	Collapse
+expand	Expand
+chemical	Chemical
+chemicals	Chemicals
+and	and
+fillVolumeError	Value should be within following ranges 
+concentrationWarning	Concentration should be greater than 0
+concentrationMaxWarning	and less than or equals to
+alreadExist	Record already added
+resultsFor	Results for
+matchingResults	All matching results
+requiredTests	Required Tests
+noProductsAvailableWarning	Currently the app doesn't support the selected 'Product Type'. Do you still want to change the 'Product Type'?
+cancelConfirmation	Are you sure you want to delete?
+inspection	Inspection
+units	Units
+testResults	Test Results
+mfgDate	Manufacturing Date
+expiryDate	Expiration Date
+bottleNo	Bottle No.
+volume	Volume
+storeAt	Store at
+customerName	Customer Name
+sterlityStatement	Sterlity Statement
+intendedUseStatement	Intended Use Statement
+poreSize1	.1 μm
+poreSize2	.2 μm
+productName	Product Name
+goingBack	 Going Back?
+backButtonWarning	 This action will reset your current selections. Do you wish to continue?
+warningMaxFormulation	You have reached the maximum number of formulations selections possible
+warningMaxQualityInit	You have reached the maximum
+warningMaxQualityEnd	 tests that can be accommodated
+warningQualityNoType	 Before adding a new test type, please fill out the missing information on existing
+warningQualityExistInit	 You already have a
+warningQualityExistMid	 test with
+warningQualityExistEnd	data
+incompleteForms	There are incomplete fields. Please revisit the forms in the following page(s)
+general	 GENERAL INFORMATION
+formulation	 FORMULATION & QUALITY CONTROL
+packaging	 PACKAGING
+manufacturing	 MANUFACTURING & DISTRIBUTION
+documentation	 DOCUMENTATION
+noSearch	 No search results available
+batchSizeError	 Batch size should be between 0 and 9999999.
+specificationPlaceholder	 Enter specification here
+product	 Product
+test	 test
+concentrationUnit	 Unit
+resetPackaging	 Change made to NaOH will reset your current preference for packaging.
+outsideoftheintendeduseWarning	 This application could be outside of the intended use.
+packageContentAppendix1	 FOR FURTHER MANUFACTURING OR RESEARCH USE.
+packageContentAppendix2	 NOT FOR DIAGNOSTIC OR THERAPEUTIC USE.
+cantProduce	 Product can't be produce due to high concentration.

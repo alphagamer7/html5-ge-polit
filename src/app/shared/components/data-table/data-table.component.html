@@ -1,0 +1,120 @@
+<ion-grid *ngIf="items && items.length" class="table">
+  <ion-item-divider sticky no-bounce>
+    <ion-row class="table-header-row">
+      <ion-col
+        [ngClass]="{ selected: header.key === selectedSortKey }"
+        *ngFor="let header of headers"
+        [class.actionColumn]="header.key === ''"
+        [class.inputSelect]="header.key === 'concentration' && viewOnly"
+      >
+        {{ header.title }}
+      </ion-col>
+    </ion-row>
+  </ion-item-divider>
+  <div [formGroup]="chemicalFormGroup" no-bounce has-bouncing="false">
+    <ion-row
+      class="table-body-row"
+      [class.selected]="item.isSelected && !viewOnly && !isLookup"
+      *ngFor="let item of items; trackBy: custom; let i = index"
+      (click)="isSelectable && handleItemSelection(item)"
+    >
+      <ion-col *ngFor="let column of headers" [class.actionColumn]="column.key === ''" [class.inputSelect]="column.key === 'concentration' && viewOnly">
+        <ion-item>
+          <div *ngIf="column.key !== 'concentration' && column.key !== ''">{{ item[column.key] ? item[column.key] : '-' }}</div>
+
+          <div *ngIf="column.key === 'concentration' && viewOnly">
+            <div formArrayName="concentrationDetails">
+              <div [formGroupName]="i">
+                <div class="input-select-container table-input-select" *ngIf="!isSummary">
+                  <ion-input
+                    type="number"
+                    onkeypress="return (event.charCode >= 46 && event.charCode <= 57)"
+                    (ionBlur)="saveConcentration({ event: $event, item: item, index: i })"
+                    formControlName="concentrationDetail"
+                    [class.error]="showWarnings && !concentrationDetails.get(i + '.concentrationDetail')?.valid"
+                  >
+                  </ion-input>
+
+                  <ion-select
+                    mode="ios"
+                    interface="popover"
+                    formControlName="concentrationUnit"
+                    [interfaceOptions]="customPopoverOptions2"
+                    [selectedText]="item.concentrationUnit"
+                    (ionChange)="handleSelectedUnitChange({ event: $event, item: item })"
+                  >
+                    <ion-select-option *ngFor="let unit of objectKeys(concentrationUnits)" [value]="unit">
+                      {{ unit }}
+                    </ion-select-option>
+                  </ion-select>
+                </div>
+                <div *ngIf="isSummary">{{ item.concentration }} {{ item.concentrationUnit }}</div>
+                <div *ngIf="concentrationDetails.get(i + '.concentrationDetail')?.errors && !isSummary">
+                  <!-- Error Message --{{ concentrationDetails.get(i + '.concentrationDetail')?.errors | json }} -->
+                  <p
+                    *ngIf="
+                      item.chemicalFormulation === 'NaOH' &&
+                      (concentrationDetails.get(i + '.concentrationDetail')?.errors?.isInValidNaOH ||
+                        concentrationDetails.get(i + '.concentrationDetail')?.errors?.min)
+                    "
+                    class="table-error-msg"
+                  >
+                    {{ regionService.language['concentrationWarning'] + ' ' + item.concentrationUnit }}
+                    {{ regionService.language['concentrationMaxWarning'] + ' ' + 3 + ' ' + item.concentrationUnit }}
+                  </p>
+                  <p *ngIf="concentrationDetails.get(i + '.concentrationDetail')?.errors?.numberWithDecimalFields" class="table-error-msg">
+                    {{ regionService.language['concentration'] }}
+                    {{ regionService.language['requiredInteger'] }}
+                  </p>
+
+                  <p
+                    *ngIf="
+                      item.chemicalFormulation !== 'NaOH' &&
+                      (concentrationDetails.get(i + '.concentrationDetail')?.errors?.max || concentrationDetails.get(i + '.concentrationDetail')?.errors?.min)
+                    "
+                    class="table-error-msg"
+                  >
+                    {{ regionService.language['concentrationWarning'] + ' ' + item.concentrationUnit }}
+                    {{
+                      item.maxConcentration
+                        ? regionService.language['concentrationMaxWarning'] + ' ' + item.maxConcentration + ' ' + item.concentrationUnit
+                        : ''
+                    }}
+                  </p>
+                  <p
+                    *ngIf="
+                      item.chemicalFormulation === 'NaOH' &&
+                      item.concentrationUnit === 'l' &&
+                      (concentrationDetails.get(i + '.concentrationDetail')?.errors?.max || concentrationDetails.get(i + '.concentrationDetail')?.errors?.min)
+                    "
+                    class="table-error-msg"
+                  >
+                    {{ regionService.language['concentrationWarning'] + ' ' + item.concentrationUnit }}
+                    {{
+                      item.maxConcentration
+                        ? regionService.language['concentrationMaxWarning'] + ' ' + item.maxConcentration + ' ' + item.concentrationUnit
+                        : ''
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+        <div *ngIf="column.key === '' && viewOnly && !isSummary" (click)="deleteItem(item.id)" class="delete-action-btn" tappable>
+          <ion-icon name="trash" mode="ios"></ion-icon>
+        </div>
+        <div *ngIf="column.key === '' && showRadio && !isSummary" class="select-action-btn" tappable>
+          <ion-icon [name]="item.isSelected ? 'md-checkmark-circle' : 'radio-button-off'"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="handlePagination($event)" *ngIf="hasMoreRecords">
+    <ion-infinite-scroll-content loadingSpinner="crescent"> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-grid>
+
+<div *ngIf="items && !items.length && displayModal">
+  <ion-label position="title" class="no-result"> {{ regionService.language['noSearch'] }}</ion-label>
+</div>

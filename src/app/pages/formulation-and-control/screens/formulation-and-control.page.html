@@ -1,0 +1,147 @@
+<header-section [pageType]="pageType" (showWarningsOnBreadcrumbNavigation)="handleShowWarningsOnBreadcrumbNavigation($event)"></header-section>
+<ion-content padding class="form-container" [class.no-scroll]="disableScroll" no-bounce has-bouncing="false" forceOverscroll="false">
+  <form [formGroup]="formulationForm" *ngIf="formIsReady">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked" [class.label-error]="showWarnings && !hasSelectedFormulations">
+              {{ regionService.language[fields[fieldKeys.chemicalFormulation].label] }}*
+            </ion-label>
+            <ion-item class="input-select-container">
+              <ion-input
+                clearInput
+                [type]="fields[fieldKeys.chemicalFormulationSearchInput].type"
+                [placeholder]="regionService.language[fields[fieldKeys.chemicalFormulationSearchInput].placeholder]"
+                [formControlName]="fields[fieldKeys.chemicalFormulationSearchInput].name"
+                (keyup.enter)="showModal()"
+              >
+              </ion-input>
+              <ion-select
+                mode="ios"
+                [interface]="fields[fieldKeys.filterCategories].interface"
+                [interfaceOptions]="customPopoverOptions35"
+                [formControlName]="fields[fieldKeys.filterCategories].name"
+                tappable
+              >
+                <ion-select-option *ngFor="let searchCategory of objectKeys(searchCategories)" [value]="searchCategory">
+                  {{ regionService.language[searchCategory] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-item>
+          <data-table
+            [hidden]="
+              !formulationForm.get(fields[fieldKeys.chemicalFormulationSearchInput].name).value ||
+              !formulationForm.get(fields[fieldKeys.chemicalFormulationSearchInput].name).value.length ||
+              isModalOpen
+            "
+            class="searchbar-results sticky-header"
+            [headers]="getCustomHeaders(true)"
+            [items]="fields[fieldKeys.chemicalFormulation].options"
+            [isSelectable]="true"
+            [viewOnly]="false"
+            [isLookup]="true"
+            [displayModal]="formulationForm.get(fields[fieldKeys.chemicalFormulationSearchInput].name).value && !isFetching"
+            (itemSelection)="selectSearchResult($event)"
+          ></data-table>
+          <ion-item class="table-filter-row" *ngIf="hasSelectedFormulations">
+            <ion-col justify-content-start size="8">
+              <ion-label class="table-filter-label" *ngIf="(formulationManager.selectedFormulations$ | async) as chemical">
+                {{ regionService.language['chemicals'] + ' (' + chemical.length + ')' }}
+              </ion-label>
+              <ion-input
+                class="table-filter-input"
+                [type]="fields[fieldKeys.productName].type"
+                [placeholder]="regionService.language[fields[fieldKeys.productName].placeholder]"
+                [formControlName]="fields[fieldKeys.productName].name"
+                [maxlength]="140"
+              >
+              </ion-input>
+            </ion-col>
+            <ion-col justify-content-end size="4">
+              <div
+                class="table-filter-button btn btn-primary"
+                [class.label-error]="validationStatus?.formulation && collapseItem.collapseChemical && showWarnings"
+                (click)="hasSelectedFormulations && handleCollapse('collapseChemical')"
+              >
+                {{ !collapseItem.collapseChemical ? regionService.language['collapse'] : regionService.language['expand'] }}
+              </div>
+            </ion-col>
+          </ion-item>
+          <ion-item *ngIf="!collapseItem.collapseChemical">
+            <data-table
+              [headers]="formulationTableHeaders"
+              [items]="formulationManager.selectedFormulations$ | async"
+              [hasMoreRecords]="hasMoreRecords"
+              [viewOnly]="true"
+              [showWarnings]="showWarnings"
+              [productType]="formulationManager.productType"
+              (selectedUnitChange)="handleSelectedUnitChange($event)"
+              (paginateAction)="handlePagination($event)"
+              (deleteRecord)="handleDeleteRecord($event)"
+              (setConcentration)="handleConcentrationInputChamge($event)"
+              (formulationValidationError)="handleValidationError($event)"
+            ></data-table>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <hr />
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label [class.label-error]="!formulationForm.controls.controlTest.valid && showWarnings" position="stacked">
+              {{ regionService.language[fields[fieldKeys.qualityControlTest].label] }}
+              *
+            </ion-label>
+            <ion-select
+              mode="ios"
+              [interface]="fields[fieldKeys.controlTest].interface"
+              [placeholder]="regionService.language[fields[fieldKeys.controlTest].placeholder]"
+              [formControlName]="fields[fieldKeys.controlTest].name"
+              [class.error]="!selectedQualityControl.length && showWarnings"
+              [interfaceOptions]="customPopoverOptions100"
+            >
+              <ion-select-option *ngFor="let option of fields[fieldKeys.controlTest].options" [value]="option">{{
+                option.qualityControlTest
+              }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="table-filter-row">
+            <ion-col justify-content-start size="8">
+              <ion-label class="table-filter-label" *ngIf="selectedQualityControl.length">
+                {{ regionService.language['requiredTests'] + ' ' + '(' + selectedQualityControl.length + ')' }}
+              </ion-label>
+            </ion-col>
+            <ion-col justify-content-end size="4">
+              <!-- here comes the collapse button -->
+              <div
+                class="table-filter-button btn btn-primary"
+                [class.label-error]="validationStatus?.quality && collapseItem.collapseQualityControl && showWarnings"
+                *ngIf="selectedQualityControl.length"
+                (click)="selectedQualityControl.length && handleCollapse('collapseQualityControl')"
+              >
+                {{ !collapseItem.collapseQualityControl ? regionService.language['collapse'] : regionService.language['expand'] }}
+              </div>
+            </ion-col>
+          </ion-item>
+          <ion-item *ngIf="!collapseItem.collapseQualityControl">
+            <quality-control
+              [headers]="qualityControlTestHeaders"
+              [selectedQualityControl]="selectedQualityControl"
+              [viewOnly]="false"
+              [showWarnings]="showWarnings"
+              (handleDeleteItem)="handleQualityTestDelete($event)"
+              (handleTypeDataSelection)="handleTypeDataSelection($event)"
+              (validationError)="handleValidationError($event)"
+              (setSpecification)="handleSpecification($event)"
+            ></quality-control>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <page-footer [showWarning]="!isFormValid" [pageType]="pageType" (buttonClicked)="handleButtonClicked($event)"> </page-footer>
+</ion-footer>

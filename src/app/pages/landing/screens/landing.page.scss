@@ -1,0 +1,19 @@
+ion-content {
+  --background: url('src/assets/img/background/GE_background_image.jpg') center/cover no-repeat;
+  position: relative;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50%;
+}
+
+cn-button {
+  width: 400px;
+
+  button {
+    font-weight: bold;
+  }
+}

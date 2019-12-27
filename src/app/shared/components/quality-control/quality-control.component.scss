@@ -1,0 +1,21 @@
+.inputSelect {   
+    min-width: 220px !important;
+}
+
+.qualitySpecification {
+    min-width: 480px !important;
+
+    ion-input {
+        min-width: 480px;
+    }
+}
+
+.qualitySpecificationtable {
+    .table-body-row, .table-header-row {
+        ion-col {
+            &:first-child {
+                max-width: 170px;
+            }
+        }
+    }
+}

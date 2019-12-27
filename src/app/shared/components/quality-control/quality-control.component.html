@@ -1,0 +1,58 @@
+<ion-grid *ngIf="selectedQualityControl.length" class="table qualitySpecificationtable">
+  <ion-row class="table-header-row">
+    <ion-col
+      [ngClass]="{ selected: header.key === selectedSortKey }"
+      *ngFor="let header of headers"
+      [class.actionColumn]="header.key === ''"
+      [class.inputSelect]="header.key === 'typeOfData'"
+      [class.qualitySpecification]="header.key === 'specification' && !viewOnly"
+    >
+      {{ header.title }}
+    </ion-col>
+  </ion-row>
+  <ion-row class="table-body-row" *ngFor="let item of selectedQualityControl; let i = index">
+    <ion-col
+      *ngFor="let column of headers"
+      [class.actionColumn]="column.key === ''"
+      [class.inputSelect]="column.key === 'typeOfData'"
+      [class.qualitySpecification]="column.key === 'specification' && !viewOnly"
+      tappable
+    >
+      <ion-item>
+        <div *ngIf="column.key == 'qualityControlTest'">{{ item[column.key] ? item[column.key] : '' }}</div>
+        <div *ngIf="column.key === 'specification' && !viewOnly">
+          <ion-input
+            type="text"
+            [(ngModel)]="item.specification"
+            [placeholder]="regionService.language['specificationPlaceholder']"
+            (ionChange)="hasSpecificationRequired({ event: $event, item: item, index: i })"
+            [class.error]="showWarnings && (item.handleSpecificationError || !item.specification.length)"
+          ></ion-input>
+        </div>
+        <div *ngIf="column.key === 'specification' && viewOnly">
+          {{ item.specification }}
+        </div>
+        <div *ngIf="column.key === 'typeOfData' && viewOnly" class="select-container">
+          {{ item.typeOfData }}
+        </div>
+        <div *ngIf="column.key === 'typeOfData' && !viewOnly" class="select-container">
+          <ion-select
+            mode="ios"
+            interface="popover"
+            [placeholder]="regionService.language['selectTypeOfData']"
+            [selectedText]="item.typeOfData"
+            (ionChange)="handleTypeData({ event: $event, item: item, index: i })"
+            [class.error]="item.typeOfData === '' && showWarnings"
+          >
+            <ion-select-option *ngFor="let key of (typesOfData | keyvalue)" [value]="value">
+              {{ key.value }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </ion-item>
+      <div *ngIf="column.key === '' && !viewOnly" (click)="handleDeleteItem.emit(item)" class="delete-action-btn" tappable>
+        <ion-icon name="trash" mode="ios"></ion-icon>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

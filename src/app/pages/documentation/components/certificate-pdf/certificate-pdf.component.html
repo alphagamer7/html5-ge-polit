@@ -1,0 +1,97 @@
+<table>
+  <tbody>
+    <tr class="header-row">
+      <td><img alt="company-logo" width="200px" height="50px" /></td>
+    </tr>
+    <tr>
+      <td>
+        <h3>
+          <strong>{{ title | uppercase }}</strong>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table class="header-summary">
+          <tbody>
+            <tr>
+              <td>
+                <strong>{{ regionService.language['product'] }} :</strong> {{ produtDetails.productName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-4">
+                <strong>{{ regionService.language['part'] }} :</strong> {{ produtDetails.partNo }}
+              </td>
+              <td class="col-4">
+                <strong>{{ regionService.language['catlogueNo'] }} :</strong> {{ produtDetails.catlogueNo }}
+              </td>
+              <td class="col-4 text-right">
+                <strong>{{ regionService.language['mfgDate'] }} :</strong> {{ produtDetails.mfgDate }}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-4">
+                <strong>{{ regionService.language['lotNo'] }} :</strong> {{ produtDetails.lotNo }}
+              </td>
+              <td class="col-4"></td>
+              <td class="col-4 text-right">
+                <strong>{{ regionService.language['expiryDate'] }} :</strong> {{ produtDetails.expiryDate }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table class="certificate-table" cellspacing="0">
+          <thead>
+            <tr cellpadding="0">
+              <th *ngFor="let header of headers" class="text-center">{{ header.title }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of qualityTestResults">
+              <td *ngFor="let column of headers" style="height: 50px; vertical-align: middle; text-align: center;">
+                {{ item[column.key] ? item[column.key] : '-' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr>
+      <td><strong>GE Healthcare Lifesciences</strong></td>
+      <td><img alt="ge-logo" width="50px" height="50px" src="src/assets/img/logo/ge-logo-white.png" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <h1>{{title| uppercase}}</h1>
+{{ regionService.language['product']}} : {{produtDetails.productName}}
+{{ regionService.language['part']}} : {{produtDetails.partNo}} part
+{{ regionService.language['lotNo']}} : {{produtDetails.lotNo}}
+{{ regionService.language['catlogueNo']}} {{produtDetails.catlogNo}}
+{{ regionService.language['mfgDate']}} :{{produtDetails.mfgDate}}
+{{ regionService.language['expiryDate']}} : {{produtDetails.expiryDate}}
+<ion-grid class="table">
+  <ion-row class="table-header-row">
+    <ion-col [ngClass]="{ selected: header.key === selectedSortKey }" *ngFor="let header of headers">
+      {{ header.title }}
+    </ion-col>
+  </ion-row>
+  <ion-row class="table-body-row" *ngFor="let item of qualityTestResults">
+    <ion-col *ngFor="let column of headers" tappable>
+      <ion-item>
+        <div>{{ item[column.key] ? item[column.key] : '-' }}
+        </div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->

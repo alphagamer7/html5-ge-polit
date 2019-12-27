@@ -1,0 +1,50 @@
+// .md,
+// .wp,
+// .ios {
+//   page-footer {
+//     .footer-bar {
+//       width: inherit;
+//       padding: 30px;
+//       display: grid;
+
+//       grid: {
+//         gap: 30px;
+//         template-columns: 200px auto 200px;
+//       }
+
+//       &>div {
+//         &:first-child {
+//           grid-column: 1/2;
+//         }
+
+//         &:last-child {
+//           grid-column: 3/4;
+//         }
+//       }
+//     }
+//   }
+// }
+
+.footer {
+  --ion-grid-padding: 0px;
+  --ion-grid-column-padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 50px;
+
+  ion-col {
+    display: flex;
+  }
+
+  cn-button {
+    button {
+      max-width: 200px;
+    }
+
+    &:not(:first-child) {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+}

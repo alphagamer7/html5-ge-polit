@@ -1,0 +1,15 @@
+pdf-viewer .ng2-pdf-viewer-container .pdfViewer {
+    display: flex !important;
+}
+
+.pdf-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .pdf-title {
+        font-size: var(--font-size-sm);
+        color: var(--ion-color-text-grey);
+        font-style: italic;
+    }
+}
